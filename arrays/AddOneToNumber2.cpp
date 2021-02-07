@@ -3,8 +3,10 @@ using namespace std;
 
 vector<int> plusOne(vector<int> &digits)
 {
+    //reverse the array
     reverse(digits.begin(), digits.end());
     vector<int> ans;
+    //initialize carry to 1
     int carry = 1;
     for (int i = 0; i < digits.size(); i++)
     {
@@ -12,11 +14,13 @@ vector<int> plusOne(vector<int> &digits)
         ans.push_back(sum % 10);
         carry = sum / 10;
     }
+    //if carry is there push to result vector
     while (carry)
     {
         ans.push_back(carry % 10);
         carry /= 10;
     }
+    //remove and zeros present at the start
     while (ans[ans.size() - 1] == 0 && ans.size() > 1)
     {
         ans.pop_back();
