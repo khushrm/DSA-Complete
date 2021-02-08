@@ -1,0 +1,68 @@
+/**
+ * Definition for an interval.
+ * struct Interval {
+ *     int start;
+ *     int end;
+ *     Interval() : start(0), end(0) {}
+ *     Interval(int s, int e) : start(s), end(e) {}
+ * };
+ */
+vector<Interval> Solution::insert(vector<Interval> &intervals, Interval newInterval) {
+    // Do not write main() function.
+    // Do not read input, instead use the arguments to the function.
+    // Do not print the output, instead return values as specified
+    // Still have a doubt. Checkout www.interviewbit.com/pages/sample_codes/ for more details
+    if(intervals.empty()){
+    vector<Interval>res;
+    res.push_back(newInterval);
+    return res;
+}
+
+if(newInterval.start > intervals.back().end){
+    intervals.push_back(newInterval);
+    return intervals;
+}
+if(newInterval.end < intervals.front().start){
+    vector<Interval> res;
+    res.push_back(newInterval);
+    for(int i=0;i<intervals.size();i++){
+        res.push_back(intervals[i]);
+    }
+    return res;
+}
+
+Interval s = Interval();
+Interval f = Interval();
+int si,fi;
+for(int i=0;i<intervals.size();i++){
+    if(intervals[i].start < newInterval.end){
+        f = intervals[i];
+        fi = i;
+    }
+}
+
+for(int i=intervals.size()-1;i>=0;i--){
+    if(intervals[i].end > newInterval.start){
+        s = intervals[i];
+        si = i;
+    }
+}
+
+int newS = min(newInterval.start,s.start);
+int newF = max(newInterval.end,f.end);
+
+Interval merged = Interval(newS,newF);
+vector<Interval> res;
+
+for(int i=0;i<si;i++){
+    res.push_back(intervals[i]);
+}
+res.push_back(merged);
+for(int i=fi+1;i<intervals.size();i++){
+    res.push_back(intervals[i]);
+}
+
+
+
+return res;
+}
