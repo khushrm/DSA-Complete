@@ -1,0 +1,1 @@
+if(nums.size() == 0 || nums.size() == 1)
